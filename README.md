@@ -31,3 +31,8 @@ Earlier releases of JSIP2 are available on [SourceForge](https://sourceforge.net
 mvn clean install
 ```
 
+## License
+
+The JSIP2 source is licensed under the [MIT License](LICENSE.md).
+
+The JSIP2 documentation is licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/). 
