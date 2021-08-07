@@ -23,7 +23,6 @@
  */
 package com.pkrete.jsip2.parser;
 
-import com.pkrete.jsip2.exceptions.InvalidSIP2ResponseException;
 import com.pkrete.jsip2.exceptions.InvalidSIP2ResponseValueException;
 import com.pkrete.jsip2.messages.responses.SIP2FeePaidResponse;
 import org.slf4j.Logger;
