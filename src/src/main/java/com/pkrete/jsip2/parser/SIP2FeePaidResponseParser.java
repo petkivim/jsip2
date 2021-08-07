@@ -26,6 +26,8 @@ package com.pkrete.jsip2.parser;
 import com.pkrete.jsip2.exceptions.InvalidSIP2ResponseException;
 import com.pkrete.jsip2.exceptions.InvalidSIP2ResponseValueException;
 import com.pkrete.jsip2.messages.responses.SIP2FeePaidResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class parses the data received from the ILS SIP server
@@ -36,17 +38,19 @@ import com.pkrete.jsip2.messages.responses.SIP2FeePaidResponse;
  */
 public class SIP2FeePaidResponseParser extends SIP2ResponseParser {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SIP2FeePaidResponseParser.class);
+
     /**
      * Parses a new SIP2FeePaidResponse from the given data.
      * @param data message response data
      * @return SIP2FeePaidResponse object parsed from the data
      * @throws InvalidSIP2ResponseValueException
-     * @throws InvalidSIP2ResponseException 
      */
     @Override
     public SIP2FeePaidResponse parse(String data)
-            throws InvalidSIP2ResponseValueException,
-            InvalidSIP2ResponseException {
+            throws InvalidSIP2ResponseValueException {
+        LOGGER.debug("Response: {}", data);
+
         SIP2FeePaidResponse response = new SIP2FeePaidResponse(data);
         try {
             response.setPaymentAccepted(this.charToBool(data.charAt(2)));
@@ -65,6 +69,7 @@ public class SIP2FeePaidResponseParser extends SIP2ResponseParser {
             }
             response.setCheckSum(parseChecksum(data));
         } catch (InvalidSIP2ResponseValueException e) {
+            LOGGER.error(e.getMessage(), e);
             throw new InvalidSIP2ResponseValueException(e.getMessage() + " Response message string: \"" + data + "\"");
         }
         return response;

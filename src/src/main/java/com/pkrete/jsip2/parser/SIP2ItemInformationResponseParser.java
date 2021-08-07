@@ -31,6 +31,8 @@ import com.pkrete.jsip2.variables.CurrencyTypeFactory;
 import com.pkrete.jsip2.variables.FeeTypeFactory;
 import com.pkrete.jsip2.variables.MediaTypeFactory;
 import com.pkrete.jsip2.variables.SecurityMarkerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class parses the data received from the ILS SIP server
@@ -41,17 +43,19 @@ import com.pkrete.jsip2.variables.SecurityMarkerFactory;
  */
 public class SIP2ItemInformationResponseParser extends SIP2ResponseParser {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SIP2ItemInformationResponseParser.class);
+
     /**
      * Parses a new SIP2ItemInformationResponse from the given data.
      * @param data message response data
      * @return SIP2ItemInformationResponse object parsed from the data
      * @throws InvalidSIP2ResponseValueException
-     * @throws InvalidSIP2ResponseException 
      */
     @Override
     public SIP2ItemInformationResponse parse(String data)
-            throws InvalidSIP2ResponseValueException,
-            InvalidSIP2ResponseException {
+            throws InvalidSIP2ResponseValueException {
+        LOGGER.debug("Response: {}", data);
+
         SIP2ItemInformationResponse response = new SIP2ItemInformationResponse(data);
         try {
             response.setCirculationStatus(CirculationStatusFactory.getInstance().getCirculationStatus(data.substring(2, 4)));
@@ -87,6 +91,7 @@ public class SIP2ItemInformationResponseParser extends SIP2ResponseParser {
             }
             response.setCheckSum(parseChecksum(data));
         } catch (InvalidSIP2ResponseValueException e) {
+            LOGGER.error(e.getMessage(), e);
             throw new InvalidSIP2ResponseValueException(e.getMessage() + " Response message string: \"" + data + "\"");
         }
         return response;

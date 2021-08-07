@@ -32,6 +32,9 @@ import com.pkrete.jsip2.variables.ItemType;
 import com.pkrete.jsip2.variables.ItemTypeFactory;
 import com.pkrete.jsip2.variables.LanguageFactory;
 import com.pkrete.jsip2.variables.PatronStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 /**
@@ -43,17 +46,19 @@ import java.util.List;
  */
 public class SIP2PatronInformationResponseParser extends SIP2ResponseParser {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SIP2PatronInformationResponseParser.class);
+
     /**
      * Parses a new SIP2PatronInformationResponse from the given data.
      * @param data message response data
      * @return SIP2PatronInformationResponse object parsed from the data
      * @throws InvalidSIP2ResponseValueException
-     * @throws InvalidSIP2ResponseException 
      */
     @Override
     public SIP2MessageResponse parse(String data)
-            throws InvalidSIP2ResponseValueException,
-            InvalidSIP2ResponseException {
+            throws InvalidSIP2ResponseValueException {
+        LOGGER.debug("Response: {}", data);
+
         SIP2PatronInformationResponse response = new SIP2PatronInformationResponse(data);
         try {
             PatronStatus status = new PatronStatus();
@@ -149,6 +154,7 @@ public class SIP2PatronInformationResponseParser extends SIP2ResponseParser {
             }
             response.setCheckSum(parseChecksum(data));
         } catch (InvalidSIP2ResponseValueException e) {
+            LOGGER.error(e.getMessage(), e);
             throw new InvalidSIP2ResponseValueException(e.getMessage() + " Response message string: \"" + data + "\"");
         }
         return response;

@@ -35,6 +35,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is responsible of the communication between the system
@@ -51,6 +53,9 @@ import java.net.Socket;
  * @author Petteri Kivimäki
  */
 public class SIP2SocketConnection {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SIP2SocketConnection.class);
+
     /**
      * The address of the ILS SIP server.
      */ 
@@ -131,6 +136,7 @@ public class SIP2SocketConnection {
             out.write(data);
             out.flush();
         } catch (java.io.IOException ex) {
+            LOGGER.error(ex.getMessage(), ex);
             return false;
         }
         return true;
@@ -149,6 +155,7 @@ public class SIP2SocketConnection {
         try {
             return in.readLine();
         } catch (java.io.IOException ex) {
+            LOGGER.error(ex.getMessage(), ex);
             return null;
         }
     }
@@ -162,7 +169,9 @@ public class SIP2SocketConnection {
      * @throws InvalidSIP2ResponseValueException 
      */
     public SIP2MessageResponse send(SIP2MessageRequest request) throws InvalidSIP2ResponseException, InvalidSIP2ResponseValueException {
-        if(write(request.getData())) {
+        String data = request.getData();
+        LOGGER.debug("Request: {}", data);
+        if(write(data)) {
             String response = read();
             return SIP2ResponseFactory.getInstance().create(response);
         }

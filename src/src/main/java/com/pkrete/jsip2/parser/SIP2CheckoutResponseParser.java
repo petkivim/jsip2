@@ -29,6 +29,8 @@ import com.pkrete.jsip2.messages.responses.SIP2CheckoutResponse;
 import com.pkrete.jsip2.variables.CurrencyTypeFactory;
 import com.pkrete.jsip2.variables.FeeTypeFactory;
 import com.pkrete.jsip2.variables.MediaTypeFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class parses the data received from the ILS SIP server
@@ -39,17 +41,19 @@ import com.pkrete.jsip2.variables.MediaTypeFactory;
  */
 public class SIP2CheckoutResponseParser extends SIP2ResponseParser {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SIP2CheckoutResponseParser.class);
+
     /**
      * Parses a new SIP2CheckoutResponse from the given data.
      * @param data message response data
      * @return SIP2CheckoutResponse object parsed from the data
      * @throws InvalidSIP2ResponseValueException
-     * @throws InvalidSIP2ResponseException 
      */
     @Override
     public SIP2CheckoutResponse parse(String data)
-            throws InvalidSIP2ResponseValueException,
-            InvalidSIP2ResponseException {
+            throws InvalidSIP2ResponseValueException {
+        LOGGER.debug("Response: {}", data);
+
         SIP2CheckoutResponse response = new SIP2CheckoutResponse(data);
         try {
             response.setOk(this.intToBool(data.charAt(2)));
@@ -104,6 +108,7 @@ public class SIP2CheckoutResponseParser extends SIP2ResponseParser {
             }
             response.setCheckSum(parseChecksum(data));
         } catch (InvalidSIP2ResponseValueException e) {
+            LOGGER.error(e.getMessage(), e);
             throw new InvalidSIP2ResponseValueException(e.getMessage() + " Response message string: \"" + data + "\"");
         }
         return response;

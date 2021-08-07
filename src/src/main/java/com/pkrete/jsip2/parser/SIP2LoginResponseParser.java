@@ -27,6 +27,8 @@ import com.pkrete.jsip2.exceptions.InvalidSIP2ResponseException;
 import com.pkrete.jsip2.exceptions.InvalidSIP2ResponseValueException;
 import com.pkrete.jsip2.messages.SIP2MessageResponse;
 import com.pkrete.jsip2.messages.responses.SIP2LoginResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class parses the data received from the ILS SIP server
@@ -36,15 +38,18 @@ import com.pkrete.jsip2.messages.responses.SIP2LoginResponse;
  */
 public class SIP2LoginResponseParser extends SIP2ResponseParser {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SIP2LoginResponseParser.class);
+
     /**
      * Parses a new SIP2LoginResponse from the given data.
      * @param data message response data
      * @return SIP2LoginResponse parsed from the data
      * @throws InvalidSIP2ResponseValueException
-     * @throws InvalidSIP2ResponseException 
      */
     @Override
-    public SIP2MessageResponse parse(String data) throws InvalidSIP2ResponseValueException, InvalidSIP2ResponseException {
+    public SIP2MessageResponse parse(String data) throws InvalidSIP2ResponseValueException {
+        LOGGER.debug("Response: {}", data);
+
         SIP2LoginResponse response = new SIP2LoginResponse(data);
         try {
             response.setOk(intToBool(data.charAt(2)));
@@ -53,6 +58,7 @@ public class SIP2LoginResponseParser extends SIP2ResponseParser {
             }
             response.setCheckSum(parseChecksum(data));
         } catch (InvalidSIP2ResponseValueException e) {
+            LOGGER.error(e.getMessage(), e);
             throw new InvalidSIP2ResponseValueException(e.getMessage() + " Response message string: \"" + data + "\"");
         }
         return response;

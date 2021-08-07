@@ -41,6 +41,8 @@ import com.pkrete.jsip2.parser.SIP2RenewAllResponseParser;
 import com.pkrete.jsip2.parser.SIP2RenewResponseParser;
 import com.pkrete.jsip2.parser.SIP2ResponseParser;
 import com.pkrete.jsip2.parser.SIP2ACSStatusResponseParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class generates SIP2MessageResponse objects based on the data
@@ -52,6 +54,9 @@ import com.pkrete.jsip2.parser.SIP2ACSStatusResponseParser;
  * @author Petteri Kivimäki
  */
 public class SIP2ResponseFactory {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SIP2ResponseFactory.class);
+
     /**
      * Reference to the singleton object.
      */
@@ -87,10 +92,12 @@ public class SIP2ResponseFactory {
     public SIP2MessageResponse create(String data) throws InvalidSIP2ResponseException, InvalidSIP2ResponseValueException {  
         // If data is null, throw an exception
         if (data == null) {
+            LOGGER.error("Response message is null.");
             throw new InvalidSIP2ResponseException("Response message is null.");
         }
         // If data length is less than 2, throw an exception
         if (data.length() < 2) {
+            LOGGER.error("Response message is too short.");
             throw new InvalidSIP2ResponseException("Response message is too short.");
         }
 
@@ -141,6 +148,7 @@ public class SIP2ResponseFactory {
             parser = new SIP2RenewAllResponseParser();
             return parser.parse(data);
         }
+        LOGGER.error("Unsupported response type! Command identifier: {}", code);
         throw new InvalidSIP2ResponseException("Unsupported response type! Command identifier: " + code);
     }
 }
