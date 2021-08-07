@@ -1,7 +1,9 @@
 # Changelog
 
-## 1.1.0 - 2014-06-30
+## 1.2.0 - xxxx-xx-xx
+- Add basic debug and error logging.
 
+## 1.1.0 - 2014-06-30
 - Response message fieds with certain values were parsed erroneously and caused exceptions.
 - When response message parser throws an exception, the whole response message is included in the exception message.
 
