@@ -5,12 +5,13 @@
     <artifactId>jsip2</artifactId>
     <version>1.2.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>jsip2</name>
+    <name>JSIP2</name>
     <description>
         JSIP2 is an Open Source (MIT) library that implements the 3M SIP 
         version 2 protocol for SIP2 clients. The library contains the necessary 
         functionality for SIP2 client socket based implementation.
     </description>
+    <url>https://github.com/petkivim/jsip2</url>
     <inceptionYear>2012</inceptionYear>
     <licenses>
         <license>
@@ -33,11 +34,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-resources-plugin</artifactId>
-            <version>3.2.0</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
