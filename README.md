@@ -8,7 +8,7 @@ including also the fields defined in the the 3M SIP2 Extensions.
 
 ## Documentation
 
-The documentation is available in the [docs](docs/Introduction.md) folder.
+The documentation is available in the [docs](docs/README.md) folder.
 
 ## Download
 
