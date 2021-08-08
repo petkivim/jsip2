@@ -46,6 +46,14 @@ Validating the patron happens by sending the Patron Status Request or the Patron
 
 Please see the complete [SIP2 Developers Guide by 3M](https://usermanual.wiki/Document/sip2developersguide.980251042) for further information.
 
+## Good to Know
+
+### Error Detection and Sequence Number
+
+When error detection is enabled, a sequence number field, followed by a checksum number field, is appended to every message. By default, error detection is `disabled` and it must be enabled for each request message separately.
+
+By default, the sequence number is zero. When error detection is `enabled`, the client application is responsible for maintaining the sequence number and setting it for each message separately.
+
 ## Example
 
 ```
