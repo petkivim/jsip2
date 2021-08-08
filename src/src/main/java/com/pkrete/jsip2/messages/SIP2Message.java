@@ -122,7 +122,7 @@ public abstract class SIP2Message implements Serializable {
      */
     protected SIP2Message(String code) {
         this.code = code;
-        this.sequence = -1;
+        this.sequence = 0;
     }
 
     /**
@@ -142,7 +142,7 @@ public abstract class SIP2Message implements Serializable {
     }
 
     /**
-     * Returns the sequence nnumber of the message that is between
+     * Returns the sequence number of the message that is between
      * 0 and 9.
      * @return sequence number of the message
      */
@@ -151,7 +151,7 @@ public abstract class SIP2Message implements Serializable {
     }
 
     /**
-     * Changes the sequence number of the message. Aallowed values
+     * Changes the sequence number of the message. Allowed values
      * are between 0 and 9.
      * @param sequence new value
      */

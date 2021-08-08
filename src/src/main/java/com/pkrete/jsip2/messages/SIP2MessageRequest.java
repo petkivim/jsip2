@@ -66,11 +66,7 @@ public abstract class SIP2MessageRequest extends SIP2Message {
      * When error detection is enabled, a sequence number field, followed
      * by a checksum number field, is appended to every message. 
      */
-    protected static boolean errorDetectionEnabled;
-    /**
-     * Number of messages that the system has sent. Value must be 0-9.
-     */
-    protected static int counter = 0;
+    protected boolean errorDetectionEnabled;
 
     /**
      * Constructs and initializes a new SIP2MessageRequest object with
@@ -83,12 +79,6 @@ public abstract class SIP2MessageRequest extends SIP2Message {
         this.feeAcknowledged = false;
         this.useFeeAcknowledged = false;
         this.transactionDate = MessageUtil.getSipDateTime();
-        this.sequence = counter;
-        if (counter < 9) {
-            counter++;
-        } else {
-            counter = 0;
-        }
     }
 
     /**
@@ -98,7 +88,7 @@ public abstract class SIP2MessageRequest extends SIP2Message {
      * @return true if error detection is enabled, otherwise false
      */
     public boolean isErrorDetectionEnabled() {
-        return errorDetectionEnabled;
+        return this.errorDetectionEnabled;
     }
 
     /**
@@ -106,7 +96,7 @@ public abstract class SIP2MessageRequest extends SIP2Message {
      * @param errorDetection true or false
      */
     public void setErrorDetectionEnabled(boolean errorDetection) {
-        errorDetectionEnabled = errorDetection;
+        this.errorDetectionEnabled = errorDetection;
     }
 
     /**
