@@ -157,7 +157,7 @@ public class SIP2CheckinRequest extends SIP2CirculationTransactionRequest {
         }
         if (this.useCancel) {
             builder.append("|BI");
-            builder.append(StringUtil.bool2Char(this.useCancel));
+            builder.append(StringUtil.bool2Char(this.cancel));
         }
         builder.append("|");
 

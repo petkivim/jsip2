@@ -47,7 +47,7 @@ public abstract class SIP2CirculationTransactionRequest extends SIP2MessageReque
     /**
      * Should be set to true for a checkout command being used to cancel a 
      * failed checkin command, or for a checkin command being used to cancel
-     * a failed chakout command. Should be set to false for all other checkout
+     * a failed checkout command. Should be set to false for all other checkout
      * or checkin commands. Optional field.
      */
     protected boolean cancel;

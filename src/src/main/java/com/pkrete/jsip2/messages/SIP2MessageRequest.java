@@ -53,7 +53,7 @@ public abstract class SIP2MessageRequest extends SIP2Message {
      * the ILS SIP server should tell the system in the response that
      * there's a fee, and refuse to complete the transaction. If the system and the
      * patron then interact and the patron agrees to pay the fee, this field
-     * will be set to true on a second request message, indicatin to the ILS
+     * will be set to true on a second request message, indicating to the ILS
      * SIP server that the patron has acknowledged the fee and the transaction 
      * should not be refused just because there is a fee associated with it.
      */
