@@ -38,11 +38,11 @@ import com.pkrete.jsip2.util.MessageUtil;
 public class SIP2LoginRequest extends SIP2MessageRequest {
 
     /**
-     * Specifies the algorith used to encrypt userName
+     * Specifies the algorithm used to encrypt userName
      */
     private char UIDAlgorithm;
     /**
-     * Specifies the algorith used to encrypt password
+     * Specifies the algorithm used to encrypt password
      */
     private char PWDAlgorithm;
     /**
